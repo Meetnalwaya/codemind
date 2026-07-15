@@ -59,7 +59,7 @@ function registerSettingsHandlers(): void {
       return { ok: false, error: "OS-level encryption is not available on this machine" };
     }
     const encrypted = setApiKey(plainTextKey);
-    await fs.writeFile(KEY_STORAGE_PATH, encrypted);
+    await fs.writeFile(KEY_STORAGE_PATH, encrypted as unknown as Uint8Array);
     return { ok: true };
   });
 

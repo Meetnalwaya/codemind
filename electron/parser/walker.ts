@@ -3,7 +3,7 @@
 // Keeps its own default ignore list so a fresh repo "just works" with
 // zero config; ignoreGlobs from the request are merged on top.
 
-import { promises as fs } from "fs";
+import { promises as fs, type Dirent } from "fs";
 import * as path from "path";
 
 const DEFAULT_IGNORE_DIRS = new Set([
@@ -63,9 +63,9 @@ export async function walkRepo(
   const results: WalkedFile[] = [];
 
   async function walk(dir: string): Promise<void> {
-    let entries: Awaited<ReturnType<typeof fs.readdir>>;
+    let entries: Dirent[];
     try {
-      entries = await fs.readdir(dir, { withFileTypes: true });
+      entries = (await fs.readdir(dir, { withFileTypes: true })) as Dirent[];
     } catch {
       // Directory vanished or unreadable (permissions) — skip silently.
       return;
