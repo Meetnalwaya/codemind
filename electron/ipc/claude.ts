@@ -1,9 +1,5 @@
 // electron/ipc/claude.ts
 // IPC handler: the heart of "select a node, describe a change, get code."
-// Builds the context prompt (selected file + connected files + style
-// samples + graph summary), streams Claude's response back to the
-// renderer chunk-by-chunk, and extracts the final proposed file content
-// from the last fenced code block for DiffViewer to render.
 
 import { ipcMain, BrowserWindow, safeStorage } from "electron";
 import { promises as fs } from "fs";
